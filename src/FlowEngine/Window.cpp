@@ -1,6 +1,7 @@
 #include "Window.h"
 
-bool Window::s_glfwInitialized{ false }; 
+bool Window::glfwInitialized{ false };
+unsigned int Window::numActiveWindows{ 0 };
 
 Window::Window(unsigned int width, unsigned int height, std::string& name) {
 	props.width = width;
@@ -22,10 +23,11 @@ void Window::init() {
 #if __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-	if (!s_glfwInitialized) {
+	if (!glfwInitialized) {
 		int success = glfwInit();
 		assert(success && "Could not initializ GLFW");
-		s_glfwInitialized = true;
+		glfwInitialized = true;
+		++numActiveWindows;
 	}
 	window = glfwCreateWindow(props.width, props.height, props.name.c_str(), nullptr, nullptr);
 	makeCurrent();
@@ -44,7 +46,9 @@ void Window::makeCurrent() {
 
 void Window::shutdown() {
 	glfwDestroyWindow(window);
-	glfwTerminate();
+	--numActiveWindows;
+	if (numActiveWindows==0)
+		glfwTerminate();
 }
 
 void Window::update() {

@@ -1,5 +1,7 @@
+#pragma once
+
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>\
+#include <GLFW/glfw3.h>
 #include <string>
 #include <stdexcept>
 #include <iostream>
@@ -27,7 +29,8 @@ public:
 
 private:
 
-	static bool s_glfwInitialized;
+	static bool glfwInitialized;
+	static unsigned int numActiveWindows;
 	GLFWwindow* window;
 	void init();
 	WindowProps props;

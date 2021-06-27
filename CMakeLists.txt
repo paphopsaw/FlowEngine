@@ -11,6 +11,12 @@ include_directories(
     src/FlowEngine
     3rd-party/glad/include
     3rd-party/glfw/include
+    3rd-party/glm
+)
+
+file (GLOB_RECURSE FLOW_ENGINE CONFIGURE_DEPENDS
+    src/FlowEngine/*.h
+    src/FlowEngine/*.cpp
 )
 
 find_package(OpenGL REQUIRED)
@@ -22,5 +28,6 @@ link_libraries(
 
 add_executable(demo
     "src/demo.cpp"
-    3rd-party/glad/lib/glad.c  "src/FlowEngine/Window.h" "src/FlowEngine/Window.cpp")
+    3rd-party/glad/lib/glad.c
+    ${FLOW_ENGINE})
 
