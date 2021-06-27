@@ -25,6 +25,8 @@ public:
 	void operator+=(const Vector3D& v);
 	void operator-=(const Vector3D& v);
 	void operator*=(const real& k);
+	void timesUpdate(const Vector3D& v);
+	void crossUpdate(const Vector3D& v);
 
 	Vector3D times(const Vector3D& v) const;
 	real     dot(const Vector3D& v) const;

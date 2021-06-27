@@ -28,6 +28,18 @@ void Vector3D::operator*=(const real& k) {
 	z *= k;
 }
 
+void Vector3D::timesUpdate(const Vector3D& v) {
+	x *= v.x;
+	y *= v.y;
+	z *= v.z;
+}
+
+void Vector3D::crossUpdate(const Vector3D& v) {
+	x = y * v.z - z * v.y;
+	y = z * v.z - x * v.z;
+	z = x * v.y - y * v.x;
+}
+
 Vector3D Vector3D::times(const Vector3D& v) const {
 	return Vector3D(x * v.x, y * v.y, z * v.z);
 }

@@ -21,6 +21,11 @@ void Vector2D::operator*=(const real& k) {
 	y *= k;
 }
 
+void Vector2D::timesUpdate(const Vector2D& v) {
+	x *= v.x;
+	y *= v.y;
+}
+
 Vector2D Vector2D::times(const Vector2D& v) const {
 	return Vector2D(x * v.x, y * v.y);
 }

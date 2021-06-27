@@ -20,6 +20,7 @@ public:
 	void operator+=(const Vector2D& v);
 	void operator-=(const Vector2D& v);
 	void operator*=(const real& k);
+	void timesUpdate(const Vector2D& v);
 
 	Vector2D times(const Vector2D& v) const;
 	real dot(const Vector2D& v) const;
