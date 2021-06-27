@@ -20,7 +20,7 @@ void VertexArray::addVertexBuffer(const VertexBuffer& vertexBuffer) {
 	glBindVertexArray(id);
 	vertexBuffer.bind();
 	const auto& layout{ vertexBuffer.getLayout() };
-	const unsigned int stride{ vertexBuffer.getStride() };
+	unsigned int stride{ vertexBuffer.getStride() };
 	unsigned int offset{ 0 };
 	for (const auto& elementLength : layout) {
 		glEnableVertexAttribArray(bufferIndex);
@@ -29,9 +29,11 @@ void VertexArray::addVertexBuffer(const VertexBuffer& vertexBuffer) {
 			                  GL_FLOAT,
 							  GL_FALSE,
 							  stride,
-							  (void*)(offset * sizeof(float)));
+							  (const void*)(offset * sizeof(float)));
 		offset += elementLength;
+		++bufferIndex;
 	}
+	
 }
 
 void VertexArray::setIndexBuffer(const IndexBuffer& indexBuffer) {

@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include "Buffer.h"
 #include <vector>
+#include <iostream>
 
 class VertexArray {
 public:

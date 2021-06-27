@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Buffer.h"
 #include "VertexArray.h"
+#include "Shader.h"
 
 int main() {
     int width{ 1080 };
@@ -31,12 +32,21 @@ int main() {
     vertexBuffer.setLayout(layout);
     IndexBuffer indexBuffer(indices);
 
+    VertexArray vertexArray;
+    vertexArray.addVertexBuffer(vertexBuffer);
+    vertexArray.setIndexBuffer(indexBuffer);
+
+    Shader myShader(
+        "../../../resources/shaders/shader.vs",
+        "../../../resources/shaders/shader.fs");
+    myShader.bind();
+
 
     while (!myWindow.shouldClose())
     {
         myWindow.clear();
         //Draw something
-
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         myWindow.update();
     }
