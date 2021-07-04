@@ -26,6 +26,7 @@ public:
 	void setVSync(bool enabled);
 	bool isVSync() const;
 	void clear(float r = 0.05f, float g = 0.05f, float b = 0.05f, float a = 1.0f);
+	void setKeyCallback(GLFWkeyfun callback);
 
 private:
 

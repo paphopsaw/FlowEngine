@@ -76,3 +76,7 @@ void Window::setVSync(bool enabled) {
 bool Window::isVSync() const {
 	return props.vSyncEnabled;
 }
+
+void Window::setKeyCallback(GLFWkeyfun callback) {
+	glfwSetKeyCallback(window, callback);
+}

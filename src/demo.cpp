@@ -8,11 +8,15 @@
 #include "VertexArray.h"
 #include "Shader.h"
 
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 int main() {
     int width{ 1080 };
     int height{ 720 }; 
     std::string windowName{ "Hello world" };
     Window myWindow(width, height, windowName);
+    myWindow.setKeyCallback(key_callback);
 
     std::vector<float> vertices {
      -0.5f, -0.5f, 0.0f,
@@ -52,4 +56,8 @@ int main() {
     }
 
     myWindow.shutdown();
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    std::cout << key << "\n";
 }
