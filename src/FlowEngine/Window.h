@@ -6,33 +6,36 @@
 #include <stdexcept>
 #include <iostream>
 #include <cassert>
+#include <functional>
+#include <Event/Event.h>
+#include <Event/KeyEvent.h>
 
 
-struct WindowProps {
-	unsigned int width;
-	unsigned int height;
-	std::string name;
-	bool vSyncEnabled;
-};
 
 class Window {
 public:
-	Window(unsigned int width, unsigned int height, std::string& name);
+	using EventCallback = std::function<void(Event&)>;
+	Window(const std::string& name, unsigned int width, unsigned int height);
 	~Window();
-	void makeCurrent();
-	void update();
-	bool shouldClose();
+	void onUpdate();
+	bool isRunning();
 	void shutdown();
 	void setVSync(bool enabled);
 	bool isVSync() const;
 	void clear(float r = 0.05f, float g = 0.05f, float b = 0.05f, float a = 1.0f);
-	void setKeyCallback(GLFWkeyfun callback);
+	void setEventCallback(EventCallback callback);
 
 private:
-
 	static bool glfwInitialized;
 	static unsigned int numActiveWindows;
-	GLFWwindow* window;
+	GLFWwindow* m_window;
 	void init();
+	struct WindowProps {
+		unsigned int width;
+		unsigned int height;
+		std::string name;
+		bool vSyncEnabled;
+		EventCallback callback;
+	};
 	WindowProps props;
 };

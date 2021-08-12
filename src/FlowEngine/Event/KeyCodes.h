@@ -1,3 +1,5 @@
+#pragma once
+
 enum class KeyCode {
 	// From glfw3.h
 	Space = 32,

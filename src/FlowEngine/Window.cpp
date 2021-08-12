@@ -1,9 +1,6 @@
 #include "Window.h"
 
-bool Window::glfwInitialized{ false };
-unsigned int Window::numActiveWindows{ 0 };
-
-Window::Window(unsigned int width, unsigned int height, std::string& name) {
+Window::Window(const std::string& name, unsigned int width, unsigned int height) {
 	props.width = width;
 	props.height = height;
 	props.name = name;
@@ -23,41 +20,38 @@ void Window::init() {
 #if __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-	if (!glfwInitialized) {
-		int success = glfwInit();
-		assert(success && "Could not initializ GLFW");
-		glfwInitialized = true;
-		++numActiveWindows;
-	}
-	window = glfwCreateWindow(props.width, props.height, props.name.c_str(), nullptr, nullptr);
-	makeCurrent();
-	glfwSetWindowUserPointer(window, &props);
+	int success = glfwInit();
+	assert(success && "Could not initializ GLFW");
+	m_window = glfwCreateWindow(props.width, props.height, props.name.c_str(), nullptr, nullptr);
+	glfwMakeContextCurrent(m_window);
+	glfwSetWindowUserPointer(m_window, &props);
 	setVSync(true);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cerr << "Failed to initialize GLAD" << std::endl;
 	}
 
-}
- 
-void Window::makeCurrent() {
-	glfwMakeContextCurrent(window);
+
+	glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+		KeyPressedEvent e(static_cast<KeyCode>(key));
+		WindowProps& props = *(WindowProps*) glfwGetWindowUserPointer(window);
+		props.callback(e);
+	});
+
 }
 
 void Window::shutdown() {
-	glfwDestroyWindow(window);
-	--numActiveWindows;
-	if (numActiveWindows==0)
-		glfwTerminate();
+	glfwDestroyWindow(m_window);
+	glfwTerminate();
 }
 
-void Window::update() {
+void Window::onUpdate() {
 	glfwPollEvents();
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_window);
 }
 
-bool Window::shouldClose() {
-	return glfwWindowShouldClose(window);
+bool Window::isRunning() {
+	return !glfwWindowShouldClose(m_window);
 }
 
 void Window::clear(float r, float g, float b, float a) {
@@ -77,6 +71,7 @@ bool Window::isVSync() const {
 	return props.vSyncEnabled;
 }
 
-void Window::setKeyCallback(GLFWkeyfun callback) {
-	glfwSetKeyCallback(window, callback);
+
+void Window::setEventCallback(EventCallback callback) {
+	props.callback = callback;
 }
