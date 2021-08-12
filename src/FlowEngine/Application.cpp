@@ -8,7 +8,18 @@ Application::Application(const std::string& name, unsigned int width, unsigned i
 }
 
 void Application::onEvent(Event& e) {
-	std::cout << "Hello\n";
+	//Change to switch-case
+	if (e.getType() == EventType::WindowResize)
+		this->onWindowResize(static_cast<WindowResizeEvent&>(e));
+	else if (e.getType() == EventType::WindowClose)
+		this->onWindowClose(static_cast<WindowCloseEvent&>(e));
+}
+
+void Application::onWindowResize(WindowResizeEvent& e) {
+	std::cout << "Resize : (" << e.getHeight() << ", " << e.getWidth() << ")\n";
+}
+void Application::onWindowClose(WindowCloseEvent& e) {
+	std::cout << "Close" << "\n";
 }
 
 void Application::run() {

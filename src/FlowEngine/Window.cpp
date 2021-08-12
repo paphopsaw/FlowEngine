@@ -31,12 +31,23 @@ void Window::init() {
 		std::cerr << "Failed to initialize GLAD" << std::endl;
 	}
 
-
+	// TODO: Set conditions for different key events
 	glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+		
 		KeyPressedEvent e(static_cast<KeyCode>(key));
 		WindowProps& props = *(WindowProps*) glfwGetWindowUserPointer(window);
 		props.callback(e);
 	});
+
+	glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
+		WindowResizeEvent e(width, height);
+		WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(window);
+		props.callback(e);
+	});
+
+	//Window close callback
+
+	//Mouse callback
 
 }
 

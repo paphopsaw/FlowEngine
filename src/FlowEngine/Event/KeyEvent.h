@@ -3,6 +3,8 @@
 #include "Event.h"
 #include "KeyCodes.h"
 
+// Change to one key event with type
+// Add key repeat
 class KeyPressedEvent : public Event {
 public:
 	KeyPressedEvent(const KeyCode key)

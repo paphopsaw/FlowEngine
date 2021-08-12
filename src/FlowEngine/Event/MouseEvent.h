@@ -7,7 +7,7 @@ class MouseMovedEvent : public Event {
 public:
 	MouseMovedEvent(const float x, const float y)
 		:x{ x }, y{ y } {}
-	virtual EventType getType() const override{ return EventType::MouseMoved }
+	virtual EventType getType() const override { return EventType::MouseMoved }
 	float getX() const { return x; }
 	float getY() const { return y; }
 private:
