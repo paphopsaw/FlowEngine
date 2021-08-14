@@ -14,6 +14,9 @@ public:
 	void onEvent(Event& e);
 	void onWindowResize(WindowResizeEvent& e);
 	void onWindowClose(WindowCloseEvent& e);
+	void onKeyPressed(KeyPressedEvent& e);
+	void onKeyReleased(KeyReleasedEvent& e);
+	void onKeyRepeated(KeyRepeatedEvent& e);
 
 	void run();
 

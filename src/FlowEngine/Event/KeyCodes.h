@@ -1,6 +1,6 @@
 #pragma once
 
-enum class KeyCode {
+enum KeyCode {
 	// From glfw3.h
 	Space = 32,
 	Apostrophe = 39, /* ' */

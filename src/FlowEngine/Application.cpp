@@ -8,18 +8,43 @@ Application::Application(const std::string& name, unsigned int width, unsigned i
 }
 
 void Application::onEvent(Event& e) {
-	//Change to switch-case
-	if (e.getType() == EventType::WindowResize)
+	EventType type{ e.getType() };
+	switch (type) {
+	case EventType::WindowResize:
 		this->onWindowResize(static_cast<WindowResizeEvent&>(e));
-	else if (e.getType() == EventType::WindowClose)
+		break;
+	case EventType::WindowClose:
 		this->onWindowClose(static_cast<WindowCloseEvent&>(e));
+		break;
+	case EventType::KeyPressed:
+		this->onKeyPressed(static_cast<KeyPressedEvent&>(e));
+		break;
+	case EventType::KeyReleased:
+		this->onKeyReleased(static_cast<KeyReleasedEvent&>(e));
+		break;
+	case EventType::KeyRepeated:
+		this->onKeyRepeated(static_cast<KeyRepeatedEvent&>(e));
+		break;
+	}
 }
 
 void Application::onWindowResize(WindowResizeEvent& e) {
-	std::cout << "Resize : (" << e.getHeight() << ", " << e.getWidth() << ")\n";
+	std::cout << e <<"\n";
 }
 void Application::onWindowClose(WindowCloseEvent& e) {
-	std::cout << "Close" << "\n";
+	std::cout << e << "\n";
+}
+
+void Application::onKeyPressed(KeyPressedEvent& e) {
+	std::cout << e << "\n";
+}
+
+void Application::onKeyReleased(KeyReleasedEvent& e) {
+	std::cout << e << "\n";
+}
+
+void Application::onKeyRepeated(KeyRepeatedEvent& e) {
+	std::cout << e << "\n";
 }
 
 void Application::run() {

@@ -31,21 +31,42 @@ void Window::init() {
 		std::cerr << "Failed to initialize GLAD" << std::endl;
 	}
 
+	glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
+		WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(window);
+		WindowResizeEvent e(width, height);
+		props.callback(e);
+	});
+
+	glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window) {
+		WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(window);
+		WindowCloseEvent e;
+		props.callback(e);
+	});
+
 	// TODO: Set conditions for different key events
 	glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
-		
-		KeyPressedEvent e(static_cast<KeyCode>(key));
-		WindowProps& props = *(WindowProps*) glfwGetWindowUserPointer(window);
-		props.callback(e);
-	});
-
-	glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
-		WindowResizeEvent e(width, height);
 		WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(window);
-		props.callback(e);
+		switch (action) {
+			case GLFW_PRESS:
+			{
+				KeyPressedEvent e(static_cast<KeyCode>(key));
+				props.callback(e);
+				break;
+			}
+			case GLFW_RELEASE:
+			{
+				KeyReleasedEvent e(static_cast<KeyCode>(key));
+				props.callback(e);
+				break;
+			}
+			case GLFW_REPEAT:
+			{
+				KeyRepeatedEvent e(static_cast<KeyCode>(key));
+				props.callback(e);
+				break;
+			}
+		}
 	});
-
-	//Window close callback
 
 	//Mouse callback
 
