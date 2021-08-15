@@ -43,32 +43,59 @@ void Window::init() {
 		props.callback(e);
 	});
 
-	// TODO: Set conditions for different key events
 	glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
 		WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(window);
 		switch (action) {
-			case GLFW_PRESS:
-			{
-				KeyPressedEvent e(static_cast<KeyCode>(key));
-				props.callback(e);
-				break;
-			}
-			case GLFW_RELEASE:
-			{
-				KeyReleasedEvent e(static_cast<KeyCode>(key));
-				props.callback(e);
-				break;
-			}
-			case GLFW_REPEAT:
-			{
-				KeyRepeatedEvent e(static_cast<KeyCode>(key));
-				props.callback(e);
-				break;
-			}
+		case GLFW_PRESS:
+		{
+			KeyPressedEvent e(static_cast<KeyCode>(key));
+			props.callback(e);
+			break;
+		}
+		case GLFW_RELEASE:
+		{
+			KeyReleasedEvent e(static_cast<KeyCode>(key));
+			props.callback(e);
+			break;
+		}
+		case GLFW_REPEAT:
+		{
+			KeyRepeatedEvent e(static_cast<KeyCode>(key));
+			props.callback(e);
+			break;
+		}
 		}
 	});
 
-	//Mouse callback
+	glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods) {
+		WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(window);
+		switch (action) {
+		case GLFW_PRESS:
+		{
+			MouseButtonPressedEvent e(static_cast<MouseCode>(button));
+			props.callback(e);
+			break;
+		}
+		case GLFW_RELEASE:
+		{
+			MouseButtonReleasedEvent e(static_cast<MouseCode>(button));
+			props.callback(e);
+			break;
+		}
+		}
+	});
+
+	glfwSetScrollCallback(m_window, [](GLFWwindow* window, double xoffset, double yoffset) {
+		WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(window);
+		MouseScrolledEvent e(static_cast<float>(xoffset), static_cast<float>(yoffset));
+		props.callback(e);
+	});
+
+	glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xpos, double ypos) {
+		WindowProps& props = *(WindowProps*)glfwGetWindowUserPointer(window);
+		MouseMovedEvent e(static_cast<float>(xpos), static_cast<float>(ypos));
+		props.callback(e);
+	});
 
 }
 

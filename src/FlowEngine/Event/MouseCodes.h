@@ -1,6 +1,6 @@
 #pragma once
 
-enum class MouseCode {
+enum MouseCode {
 	// From glfw3.h
 	Button0 = 0,
 	Button1 = 1,

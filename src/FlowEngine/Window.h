@@ -10,6 +10,7 @@
 #include <Event/Event.h>
 #include <Event/KeyEvent.h>
 #include <Event/ApplicationEvent.h>
+#include <Event/MouseEvent.h>
 
 
 

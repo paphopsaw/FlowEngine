@@ -25,6 +25,18 @@ void Application::onEvent(Event& e) {
 	case EventType::KeyRepeated:
 		this->onKeyRepeated(static_cast<KeyRepeatedEvent&>(e));
 		break;
+	case EventType::MouseButtonPressed:
+		this->onMouseButtonPressed(static_cast<MouseButtonPressedEvent&>(e));
+		break;
+	case EventType::MouseButtonReleased:
+		this->onMouseButtonReleased(static_cast<MouseButtonReleasedEvent&>(e));
+		break;
+	case EventType::MouseMoved:
+		this->onMouseMoved(static_cast<MouseMovedEvent&>(e));
+		break;
+	case EventType::MouseScrolled:
+		this->onMouseScrolled(static_cast<MouseScrolledEvent&>(e));
+		break;
 	}
 }
 
@@ -32,18 +44,6 @@ void Application::onWindowResize(WindowResizeEvent& e) {
 	std::cout << e <<"\n";
 }
 void Application::onWindowClose(WindowCloseEvent& e) {
-	std::cout << e << "\n";
-}
-
-void Application::onKeyPressed(KeyPressedEvent& e) {
-	std::cout << e << "\n";
-}
-
-void Application::onKeyReleased(KeyReleasedEvent& e) {
-	std::cout << e << "\n";
-}
-
-void Application::onKeyRepeated(KeyRepeatedEvent& e) {
 	std::cout << e << "\n";
 }
 
