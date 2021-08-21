@@ -1,6 +1,7 @@
 #pragma once
-
-enum MouseCode {
+#include <type_traits>
+#include <iostream>
+enum class MouseCode {
 	// From glfw3.h
 	Button0 = 0,
 	Button1 = 1,
@@ -16,3 +17,5 @@ enum MouseCode {
 	ButtonRight = Button1,
 	ButtonMiddle = Button2
 };
+
+std::ostream& operator<<(std::ostream& out, const MouseCode& code);

@@ -1,6 +1,7 @@
 #pragma once
-
-enum KeyCode {
+#include <type_traits>
+#include <iostream>
+enum class KeyCode {
 	// From glfw3.h
 	Space = 32,
 	Apostrophe = 39, /* ' */
@@ -133,3 +134,5 @@ enum KeyCode {
 	RightSuper = 347,
 	Menu = 348
 };
+
+std::ostream& operator<<(std::ostream& out, const KeyCode& code);

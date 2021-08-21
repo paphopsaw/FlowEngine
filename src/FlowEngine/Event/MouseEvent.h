@@ -37,10 +37,10 @@ private:
 
 class MouseButtonPressedEvent : public Event {
 public:
-	MouseButtonPressedEvent(const MouseCode mouseButton)
+	MouseButtonPressedEvent(const MouseCode& mouseButton)
 		:mouseButton{ mouseButton } {}
 	virtual EventType getType() const override { return EventType::MouseButtonPressed; }
-	float getMouseButton() const { return mouseButton; }
+	MouseCode getMouseButton() const { return mouseButton; }
 	friend std::ostream& operator<< (std::ostream& out, const MouseButtonPressedEvent& e) {
 		out << "MouseButtonPressed: " << e.mouseButton;
 		return out;
@@ -54,7 +54,7 @@ public:
 	MouseButtonReleasedEvent(const MouseCode mouseButton)
 		:mouseButton{ mouseButton } {}
 	virtual EventType getType() const override { return EventType::MouseButtonReleased; }
-	float getMouseButton() const { return mouseButton; }
+	MouseCode getMouseButton() const { return mouseButton; }
 	friend std::ostream& operator<< (std::ostream& out, const MouseButtonReleasedEvent& e) {
 		out << "MouseButtonReleased: " << e.mouseButton;
 		return out;

@@ -15,6 +15,7 @@ public:
 
 private:
 	unsigned int id;
+	//e.g. [3,3,2]
 	std::vector<unsigned int> layout;
 };
 

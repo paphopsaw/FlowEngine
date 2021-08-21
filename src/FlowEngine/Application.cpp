@@ -4,7 +4,7 @@ Application::Application(const std::string& name, unsigned int width, unsigned i
 	: m_name{ name }, m_window{ Window(name, width, height) } {
 	m_window.setEventCallback([this](Event& e) -> void { this->onEvent(e); });
 	m_window.setVSync(true);
-
+	
 }
 
 void Application::onEvent(Event& e) {
@@ -47,11 +47,35 @@ void Application::onWindowClose(WindowCloseEvent& e) {
 	std::cout << e << "\n";
 }
 
+
+
 void Application::run() {
+	std::vector<float> vertices{
+		-0.5f, -0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		 0.5f,  0.5f, 0.0f
+	};
+
+	std::vector<unsigned int> indices{
+		0, 1, 3,
+		3, 2, 0
+	};
+	Shader shader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs");
+	shader.bind();
+	VertexArray vertexArray;
+	vertexArray.bind();
+	VertexBuffer vertexBuffer(vertices);
+	vertexBuffer.setLayout({3});
+	IndexBuffer indexBuffer(indices);
+	vertexArray.addVertexBuffer(vertexBuffer);
+	vertexArray.setIndexBuffer(indexBuffer);
+
+
 	while (m_window.isRunning())
 	{
 		m_window.clear();
-
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		m_window.onUpdate();
 	}
 	m_window.shutdown();

@@ -12,6 +12,8 @@ include_directories(
     3rd-party/glad/include
     3rd-party/glfw/include
     3rd-party/glm
+    3rd-party/stb
+    3rd-party/tinyobjectloader
 )
 
 file (GLOB_RECURSE FLOW_ENGINE CONFIGURE_DEPENDS
