@@ -50,7 +50,7 @@ void Application::onWindowClose(WindowCloseEvent& e) {
 
 
 void Application::run() {
-	std::vector<float> vertices{
+	std::vector<float> positions{
 		-0.5f, -0.5f, 0.0f,
 		-0.5f,  0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
@@ -63,18 +63,13 @@ void Application::run() {
 	};
 	Shader shader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs");
 	shader.bind();
-	VertexArray vertexArray;
-	vertexArray.bind();
-	VertexBuffer vertexBuffer(vertices);
-	vertexBuffer.setLayout({3});
-	IndexBuffer indexBuffer(indices);
-	vertexArray.addVertexBuffer(vertexBuffer);
-	vertexArray.setIndexBuffer(indexBuffer);
+	Mesh mesh(positions, indices);
 
 
 	while (m_window.isRunning())
 	{
 		m_window.clear();
+		mesh.bindVAO();
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		m_window.onUpdate();
 	}

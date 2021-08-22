@@ -1,9 +1,7 @@
 #pragma once
 #include <map>
 #include <string>
-
 #include <glad/glad.h>
-
 #include "Texture.h"
 #include "Shader.h"
 #include "Mesh.h"
@@ -16,8 +14,6 @@ public:
 	static Shader getShader(std::string name);
 	static Texture2D loadTexture(const char* texturePath, bool alpha, std::string name);
 	static Texture2D getTexture(std::string name);
-	static Mesh loadMesh();
-	static Mesh getMesh(std::string name);
 	static void clear();
 
 private:

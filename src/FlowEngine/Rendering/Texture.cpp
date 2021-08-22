@@ -1,7 +1,16 @@
 #include "Texture.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
+Texture2D::Texture2D()
+	: width{ 0 }, height{ 0 }, nrChannels{ 3 }, 
+	wrap_s{ GL_REPEAT }, wrap_t{ GL_REPEAT }, min_filter{ GL_LINEAR_MIPMAP_LINEAR }, max_filter{ GL_LINEAR }
+{
+	glGenTextures(1, &this->ID);
+}
 
 Texture2D::Texture2D(const char* filePath, unsigned int format)
-	: wrap_s(GL_REPEAT), wrap_t(GL_REPEAT), min_filter(GL_LINEAR_MIPMAP_LINEAR), max_filter(GL_LINEAR)
+	: wrap_s{ GL_REPEAT }, wrap_t{ GL_REPEAT }, min_filter{ GL_LINEAR_MIPMAP_LINEAR }, max_filter{ GL_LINEAR }
 {
 
 	glGenTextures(1, &ID);

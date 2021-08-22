@@ -10,5 +10,5 @@ public:
 	~Renderer();
 	void draw(Scene& scene);
 private:
-	Shader m_shader
+	Shader m_shader;
 };

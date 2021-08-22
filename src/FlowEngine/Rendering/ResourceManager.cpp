@@ -1,5 +1,9 @@
 #include "ResourceManager.h"
 
+
+std::map<std::string, Shader>       ResourceManager::s_shaders;
+std::map<std::string, Texture2D>    ResourceManager::s_textures;
+
 Shader ResourceManager::loadShader(const char* vertexPath, const char* fragmentPath, std::string name) {
 	Shader shader(vertexPath, fragmentPath);
 	s_shaders[name] = shader;
@@ -25,7 +29,7 @@ Texture2D ResourceManager::getTexture(std::string name) {
 
 void ResourceManager::clear() {
 	for (auto i : s_shaders)
-		glDeleteProgram(i.second.getId());
+		glDeleteProgram(i.second.ID);
 	for (auto i : s_textures)
-		glDeleteTextures(1, &i.second.getId());
+		glDeleteTextures(1, &i.second.ID);
 }

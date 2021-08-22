@@ -10,14 +10,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 class Shader {
-private:
-    unsigned int ID;
 public:
+    unsigned int ID;
     //Constructor
+    Shader() {}
     Shader(const char* vertexPath, const char* fragmentPath);
     ~Shader();
-
-    unsigned int getId() { return ID; }
     //Use shader
     void bind() const;
     void unbind() const;

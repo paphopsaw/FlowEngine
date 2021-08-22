@@ -12,17 +12,18 @@
  Light
 */
 
-struct Instance {
-	std::string meshName;
-	Transform transform;
-};
-
 
 struct Transform {
 	glm::vec3 scale;
 	glm::quat rotation;
 	glm::vec3 translation;
 };
+
+struct Instance {
+	std::string meshName;
+	Transform transform;
+};
+
 
 
 class Scene {
@@ -33,5 +34,4 @@ public:
 
 private:
 	std::map<std::string, Instance> m_instances;
-	Camera m_camera;
 };

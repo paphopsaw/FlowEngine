@@ -3,9 +3,8 @@
 #include "Event/Event.h"
 #include "Event/ApplicationEvent.h"
 #include "Rendering/Scene.h"
-#include "Rendering/Buffer.h"
-#include "Rendering/VertexArray.h"
 #include "Rendering/Shader.h"
+#include "Rendering/Mesh.h"
 #include <string>
 #include <iostream>
 
