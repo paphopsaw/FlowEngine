@@ -8,46 +8,8 @@ Application::Application(const std::string& name, unsigned int width, unsigned i
 }
 
 void Application::onEvent(Event& e) {
-	EventType type{ e.getType() };
-	switch (type) {
-	case EventType::WindowResize:
-		this->onWindowResize(static_cast<WindowResizeEvent&>(e));
-		break;
-	case EventType::WindowClose:
-		this->onWindowClose(static_cast<WindowCloseEvent&>(e));
-		break;
-	case EventType::KeyPressed:
-		this->onKeyPressed(static_cast<KeyPressedEvent&>(e));
-		break;
-	case EventType::KeyReleased:
-		this->onKeyReleased(static_cast<KeyReleasedEvent&>(e));
-		break;
-	case EventType::KeyRepeated:
-		this->onKeyRepeated(static_cast<KeyRepeatedEvent&>(e));
-		break;
-	case EventType::MouseButtonPressed:
-		this->onMouseButtonPressed(static_cast<MouseButtonPressedEvent&>(e));
-		break;
-	case EventType::MouseButtonReleased:
-		this->onMouseButtonReleased(static_cast<MouseButtonReleasedEvent&>(e));
-		break;
-	case EventType::MouseMoved:
-		this->onMouseMoved(static_cast<MouseMovedEvent&>(e));
-		break;
-	case EventType::MouseScrolled:
-		this->onMouseScrolled(static_cast<MouseScrolledEvent&>(e));
-		break;
-	}
+	m_cameraController.onEvent(e);
 }
-
-void Application::onWindowResize(WindowResizeEvent& e) {
-	std::cout << e <<"\n";
-}
-void Application::onWindowClose(WindowCloseEvent& e) {
-	std::cout << e << "\n";
-}
-
-
 
 void Application::run() {
 	std::vector<float> positions{

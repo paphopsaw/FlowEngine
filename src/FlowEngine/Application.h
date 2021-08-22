@@ -5,6 +5,7 @@
 #include "Rendering/Scene.h"
 #include "Rendering/Shader.h"
 #include "Rendering/Mesh.h"
+#include "Rendering/ViewerCameraController.h"
 #include <string>
 #include <iostream>
 
@@ -29,5 +30,6 @@ public:
 
 private:
 	Window m_window;
+	ViewerCameraController m_cameraController;
 	std::string m_name;
 };
