@@ -66,6 +66,8 @@ void ViewerCameraController::onMouseScrolled(MouseScrolledEvent& e) {
 void ViewerCameraController::onMouseMoved(MouseMovedEvent& e) {
 	float dx = e.getX() - m_mousePosX;
 	float dy = e.getY() - m_mousePosY;
+	m_mousePosX = e.getX();
+	m_mousePosY = e.getX();
 	if (m_mode == CameraControlMode::ROTATE) {
 		m_camera.tilt(glm::radians(dy * m_mouseRotateSensitivity));
 		m_camera.rotate(glm::radians(dx * m_mouseRotateSensitivity));
@@ -74,4 +76,5 @@ void ViewerCameraController::onMouseMoved(MouseMovedEvent& e) {
 		glm::vec2 delta = glm::vec2(dx * m_mouseMoveSensitivity, dy * m_mouseMoveSensitivity);
 		m_camera.move(delta);
 	}
+
 }

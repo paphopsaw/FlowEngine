@@ -1,30 +1,50 @@
 #include "ViewerCamera.h"
 
-const glm::mat4 ViewerCamera::getViewMatrix() const {
-	//TODO: Fix this
-	glm::mat4 viewMatrix = glm::mat4(1.0f);
-	glm::vec3 up = glm::vec3(0.0f, cos(glm::radians(m_declination)), sin(glm::radians(m_declination)));
+std::ostream& operator<<(std::ostream& out, glm::vec3 v) {
+	out << "(" << v.x << ", " << v.y << ", " << v.z << ")";
+	return out;
+}
 
-	viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0f, 0.0f, m_zoom));
-	viewMatrix = glm::rotate(viewMatrix, glm::radians(azimuth), up);
-	viewMatrix = glm::rotate(viewMatrix, glm::radians(declination), glm::vec3(1.0f, 0.0f, 0.0f));
+const glm::mat4 ViewerCamera::getViewMatrix() const {
+	float sel = glm::sin(glm::radians(m_elevation));
+	float cel = glm::cos(glm::radians(m_elevation));
+	float saz = glm::sin(glm::radians(m_azimuth));
+	float caz = glm::cos(glm::radians(m_azimuth));
+	glm::vec3 cameraPos = m_origin +
+		glm::vec3(
+			m_distance * cel * saz,
+			m_distance * sel,
+			m_distance * cel * caz);
+	glm::vec3 up = glm::vec3(-sel * saz, cel, -sel * caz);
+	glm::mat4 viewMatrix = glm::lookAt(cameraPos, m_origin, up);
+	std::cout << cameraPos << " " << m_origin << " " << up << "\n";
+
 	return viewMatrix;
 }
 
 void ViewerCamera::setAspectRatio(float aspectRatio) {
-	m_aspectRation = aspectRatio;
+	m_aspectRatio = aspectRatio;
 	m_projectionMatrix = glm::perspective(glm::radians(m_fov), aspectRatio, m_nearClip, m_farClip);
 }
 
 void ViewerCamera::tilt(const float& delta) {
-	m_declination += delta;
-	if (m_declination > 89.0f)
-		m_declination = 89.0f;
-	else if (m_declination < -89.0f)
-		m_declination = -89.0f;
+	m_elevation += delta;
+	if (m_elevation > 89.0f)
+		m_elevation = 89.0f;
+	else if (m_elevation < -89.0f)
+		m_elevation = -89.0f;
 }
 
 void ViewerCamera::move(const glm::vec2& delta) {
-
-	//TODO: Note: When moving, delta should be adjusted according to tilting status
+	float dx = delta.x;
+	float dy = delta.y;
+	//Calculate left-right and up down
+	float sel = glm::sin(glm::radians(m_elevation));
+	float cel = glm::cos(glm::radians(m_elevation));
+	float saz = glm::sin(glm::radians(m_azimuth));
+	float caz = glm::cos(glm::radians(m_azimuth));
+	glm::vec3 target = glm::vec3(-cel * saz, -sel, -cel * caz);
+	glm::vec3 up     = glm::vec3(-sel * saz,  cel, -sel * caz);
+	glm::vec3 right  = glm::cross(target, up);
+	m_origin += dx * right + dy * up;
 }

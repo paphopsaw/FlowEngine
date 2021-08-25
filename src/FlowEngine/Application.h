@@ -8,6 +8,7 @@
 #include "Rendering/ViewerCameraController.h"
 #include <string>
 #include <iostream>
+#include <glm/glm.hpp>
 
 class Application {
 public:
@@ -29,6 +30,8 @@ public:
 	void run();
 
 private:
+	float m_timeStep = 0;
+	float m_lastFrameTime;
 	Window m_window;
 	ViewerCameraController m_cameraController;
 	std::string m_name;

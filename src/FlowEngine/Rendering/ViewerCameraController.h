@@ -1,4 +1,7 @@
 #pragma once
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "ViewerCamera.h"
 #include "Event/MouseEvent.h"
 #include "Event/ApplicationEvent.h"
@@ -6,12 +9,12 @@
 
 class ViewerCameraController {
 public:
-	enum CameraControlMode {
+	enum class CameraControlMode {
 		OFF,
 		ROTATE,
 		MOVE
 	};
-	ViewerCameraController();
+	ViewerCameraController() = default;
 	void onEvent(Event& e);
 
 	ViewerCamera& getCamera() { return m_camera; }
@@ -27,7 +30,7 @@ private:
 
 private:
 	ViewerCamera m_camera;
-	CameraControlMode m_mode;
+	CameraControlMode m_mode = CameraControlMode::OFF;
 	float m_scrollSensitivity = 1.0f;
 	float m_mouseMoveSensitivity = 1.0f;
 	float m_mouseRotateSensitivity = 1.0f;

@@ -4,7 +4,7 @@ Application::Application(const std::string& name, unsigned int width, unsigned i
 	: m_name{ name }, m_window{ Window(name, width, height) } {
 	m_window.setEventCallback([this](Event& e) -> void { this->onEvent(e); });
 	m_window.setVSync(true);
-	
+	m_lastFrameTime = glfwGetTime();
 }
 
 void Application::onEvent(Event& e) {
@@ -27,11 +27,18 @@ void Application::run() {
 	shader.bind();
 	Mesh mesh(positions, indices);
 
-
 	while (m_window.isRunning())
 	{
+		float time = glfwGetTime();
+		m_timeStep = time - m_lastFrameTime;
+		m_lastFrameTime = time;
 		m_window.clear();
 		mesh.bindVAO();
+
+		glm::mat4 view = m_cameraController.getCamera().getViewMatrix();
+		glm::mat4 proj = m_cameraController.getCamera().getProjectionMatrix();
+		shader.setMat4("view", view);
+		shader.setMat4("projection", proj);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		m_window.onUpdate();
 	}
