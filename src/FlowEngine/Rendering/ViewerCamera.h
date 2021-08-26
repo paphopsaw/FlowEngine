@@ -20,7 +20,7 @@ public:
 
 	void setAspectRatio(float aspectRatio);
 	void zoom(const float& delta) { m_distance += delta; }
-	void rotate(const float& delta) { m_azimuth += delta; }
+	void rotate(const float& delta) { m_azimuth -= delta; }
 	void tilt(const float& delta);
 	void move(const glm::vec2& delta);
 

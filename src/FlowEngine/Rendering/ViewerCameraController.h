@@ -32,8 +32,8 @@ private:
 	ViewerCamera m_camera;
 	CameraControlMode m_mode = CameraControlMode::OFF;
 	float m_scrollSensitivity = 1.0f;
-	float m_mouseMoveSensitivity = 1.0f;
-	float m_mouseRotateSensitivity = 1.0f;
+	float m_mouseMoveSensitivity = 0.01f;
+	float m_mouseRotateSensitivity = 30.0f;
 	float m_mousePosX = 0.0f;
 	float m_mousePosY = 0.0f;
 };

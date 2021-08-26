@@ -36,7 +36,9 @@ void Application::run() {
 		mesh.bindVAO();
 
 		glm::mat4 view = m_cameraController.getCamera().getViewMatrix();
-		glm::mat4 proj = m_cameraController.getCamera().getProjectionMatrix();
+		//glm::mat4 proj = m_cameraController.getCamera().getProjectionMatrix();
+		glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1.778f, 0.1f, 1000.0f);
+		//glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		shader.setMat4("view", view);
 		shader.setMat4("projection", proj);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

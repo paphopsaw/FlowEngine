@@ -46,5 +46,5 @@ void ViewerCamera::move(const glm::vec2& delta) {
 	glm::vec3 target = glm::vec3(-cel * saz, -sel, -cel * caz);
 	glm::vec3 up     = glm::vec3(-sel * saz,  cel, -sel * caz);
 	glm::vec3 right  = glm::cross(target, up);
-	m_origin += dx * right + dy * up;
+	m_origin += -dx * right + dy * up;
 }

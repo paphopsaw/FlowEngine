@@ -64,10 +64,12 @@ void ViewerCameraController::onMouseScrolled(MouseScrolledEvent& e) {
 }
 
 void ViewerCameraController::onMouseMoved(MouseMovedEvent& e) {
-	float dx = e.getX() - m_mousePosX;
-	float dy = e.getY() - m_mousePosY;
-	m_mousePosX = e.getX();
-	m_mousePosY = e.getX();
+	float posX = e.getX();
+	float posY = e.getY();
+	float dx = posX - m_mousePosX;
+	float dy = posY - m_mousePosY;
+	m_mousePosX = posX;
+	m_mousePosY = posY;
 	if (m_mode == CameraControlMode::ROTATE) {
 		m_camera.tilt(glm::radians(dy * m_mouseRotateSensitivity));
 		m_camera.rotate(glm::radians(dx * m_mouseRotateSensitivity));
