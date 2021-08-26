@@ -3,7 +3,6 @@
 
 class Camera {
 public:
-	Camera() {}
 	Camera(glm::mat4 projectionMatrix)
 		: m_projectionMatrix{ projectionMatrix } {}
 	const glm::mat4& getProjectionMatrix() const { return m_projectionMatrix; }

@@ -8,8 +8,11 @@
 class ViewerCamera : public Camera {
 public:
 	ViewerCamera(float fov = 45.0f, float aspectRatio = 1.778f, float nearClip = 0.1f, float farClip = 1000.0f)
-		: m_fov{ fov }, m_aspectRatio{ aspectRatio }, m_nearClip{ nearClip }, m_farClip{ farClip },
-		Camera(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip)) {}\
+		: m_fov{ fov }
+		, m_aspectRatio{ aspectRatio }
+		, m_nearClip{ nearClip }
+		, m_farClip{ farClip }
+		, Camera(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip)) {}
 
 	const glm::mat4 getViewMatrix() const;
 
