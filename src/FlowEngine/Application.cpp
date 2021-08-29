@@ -23,11 +23,19 @@ void Application::run() {
 		0, 1, 3,
 		3, 2, 0
 	}; */
-
+	/*
 	Cube myCube;
+	unsigned int numVertex{ myCube.getNumIndices() };
+
+	Mesh mesh(myCube.getPositions(), myCube.getIndices());
+	*/
+
+	Sphere mySphere;
+	unsigned int numIndices{ mySphere.getNumIndices() };
+	Mesh mesh(mySphere.getPositions(), mySphere.getIndices());
+
 	Shader shader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs");
 	shader.bind();
-	Mesh mesh(myCube.getPositions(), myCube.getIndices());
 
 	glm::mat4 proj = m_cameraController.getCamera().getProjectionMatrix();
 	shader.setMat4("projection", proj);
@@ -42,7 +50,7 @@ void Application::run() {
 		mesh.bindVAO();
 		glm::mat4 view = m_cameraController.getCamera().getViewMatrix();
 		shader.setMat4("view", view);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
 		m_window.onUpdate();
 	}
 	m_window.shutdown();

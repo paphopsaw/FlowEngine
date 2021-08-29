@@ -7,6 +7,7 @@
 #include "Rendering/Mesh.h"
 #include "Rendering/ViewerCameraController.h"
 #include "Modelling/Cube.h"
+#include "Modelling/Sphere.h"
 #include <string>
 #include <iostream>
 #include <glm/glm.hpp>
