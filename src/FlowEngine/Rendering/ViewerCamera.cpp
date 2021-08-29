@@ -17,8 +17,6 @@ const glm::mat4 ViewerCamera::getViewMatrix() const {
 			m_distance * cel * caz);
 	glm::vec3 up = glm::vec3(-sel * saz, cel, -sel * caz);
 	glm::mat4 viewMatrix = glm::lookAt(cameraPos, m_origin, up);
-	std::cout << cameraPos << " " << m_origin << " " << up << "\n";
-
 	return viewMatrix;
 }
 

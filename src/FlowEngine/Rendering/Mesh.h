@@ -12,6 +12,7 @@ public:
 			const std::vector<unsigned int>& indices,
 			const std::vector<float>& normals = std::vector<float>(),
 			const std::vector<float>& texcoords = std::vector<float>());
+	//TODO: Constructor from Shape
 	Mesh(std::string& objFilePath, std::string& materialFilesPath);
 	void bindVAO();
 
