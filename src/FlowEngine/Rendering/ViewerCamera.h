@@ -20,6 +20,7 @@ public:
 	float getDistance() { return m_distance; }
 	float getElevation() { return m_elevation; }
 	float getAzimuth() { return m_azimuth; }
+	glm::vec3 getPositions();
 
 	void setAspectRatio(float aspectRatio);
 	void zoom(const float& delta) { m_distance += delta; }

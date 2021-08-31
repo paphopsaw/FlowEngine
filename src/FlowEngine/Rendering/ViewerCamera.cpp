@@ -20,6 +20,18 @@ const glm::mat4 ViewerCamera::getViewMatrix() const {
 	return viewMatrix;
 }
 
+glm::vec3 ViewerCamera::getPositions() {
+	float sel = glm::sin(glm::radians(m_elevation));
+	float cel = glm::cos(glm::radians(m_elevation));
+	float saz = glm::sin(glm::radians(m_azimuth));
+	float caz = glm::cos(glm::radians(m_azimuth));
+	return m_origin +
+		glm::vec3(
+			m_distance * cel * saz,
+			m_distance * sel,
+			m_distance * cel * caz);
+}
+
 void ViewerCamera::setAspectRatio(float aspectRatio) {
 	m_aspectRatio = aspectRatio;
 	m_projectionMatrix = glm::perspective(glm::radians(m_fov), aspectRatio, m_nearClip, m_farClip);

@@ -6,7 +6,7 @@
 
 class Sphere : public Shape {
 public:
-	Sphere(float radius = 1.0f, unsigned int numLatitudes = 5, unsigned int numLongitudes = 10);
+	Sphere(float radius = 1.0f, unsigned int numLatitudes = 18, unsigned int numLongitudes = 36);
 	void clear();
 	void setLatLong(unsigned int numLatitudes, unsigned int numLongitudes);
 private:

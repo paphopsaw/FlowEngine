@@ -19,9 +19,22 @@ struct Transform {
 	glm::vec3 translation;
 };
 
+struct Material {
+	float shininess;
+};
+
+struct DirectionalLight {
+
+};
+
+struct PointLight {
+
+};
+
 struct Instance {
 	std::string meshName;
 	Transform transform;
+	Material material;
 };
 
 

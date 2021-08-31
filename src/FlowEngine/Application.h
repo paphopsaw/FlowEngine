@@ -8,6 +8,7 @@
 #include "Rendering/ViewerCameraController.h"
 #include "Modelling/Cube.h"
 #include "Modelling/Sphere.h"
+#include "Modelling/Square.h"
 #include <string>
 #include <iostream>
 #include <glm/glm.hpp>

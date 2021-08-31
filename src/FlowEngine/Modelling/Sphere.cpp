@@ -18,6 +18,7 @@ void Sphere::clear() {
 }
 
 //TODO: Consider separate VERTICES & INDICES into 2 functions.
+//TODO: Unshare texcoord at poles
 void Sphere::setLatLong(unsigned int numLatitudes, unsigned int numLongitudes) {
 	clear();
 	m_numLatitudes  = numLatitudes;
@@ -61,15 +62,15 @@ void Sphere::setLatLong(unsigned int numLatitudes, unsigned int numLongitudes) {
 	m_normals.push_back(0.0f);		//z
 
 	//INDICES
-	m_numIndices = 2 * m_numLatitudes * m_numLongitudes;
+	m_numIndices = 3 * (2 * m_numLatitudes * m_numLongitudes + 2);
 	//Around north pole
-	for (unsigned int j = 0; j < m_numLongitudes - 1; j++) {
+	for (unsigned int j = 0; j < m_numLongitudes; j++) {
 		m_indices.push_back(0);
 		m_indices.push_back(j + 1);
 		m_indices.push_back(j + 2);
 	}
 	m_indices.push_back(0);
-	m_indices.push_back(m_numLongitudes - 1);
+	m_indices.push_back(m_numLongitudes);
 	m_indices.push_back(1);
 
 	//In the middle
@@ -91,7 +92,7 @@ void Sphere::setLatLong(unsigned int numLatitudes, unsigned int numLongitudes) {
 	}
 
 	//Around south pole
-	for (unsigned int j = 0; j < m_numLongitudes - 1; j++) {
+	for (unsigned int j = 0; j < m_numLongitudes; j++) {
 		m_indices.push_back((m_numLatitudes - 1) * m_numLongitudes + j + 1);
 		m_indices.push_back(m_numLatitudes * m_numLongitudes + 1);			//South pole
 		m_indices.push_back((m_numLatitudes - 1) * m_numLongitudes +  j + 2);
