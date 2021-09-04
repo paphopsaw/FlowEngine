@@ -3,18 +3,22 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Modelling/Shape.h"
 
 
-	//Should I link this to texture?
 class Mesh {
 public:
+	Mesh() {}
 	Mesh(const std::vector<float>& positions,
 			const std::vector<unsigned int>& indices,
 			const std::vector<float>& normals = std::vector<float>(),
 			const std::vector<float>& texcoords = std::vector<float>());
-	//TODO: Constructor from Shape
+	Mesh(Shape shape);
 	Mesh(std::string& objFilePath, std::string& materialFilesPath);
+	~Mesh();
 	void bindVAO();
+	unsigned int getNumVertices() { return numVertices; }
+	unsigned int getNumIndices() { return numIndices; }
 
 private:
 	unsigned int meshVAO;

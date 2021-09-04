@@ -2,6 +2,8 @@
 
 Square::Square(float length)
 	:m_length{ length } {
+	m_numVertices = 4;
+	m_numIndices = 6;
 	m_positions = {
 		-0.5f, 0.0f,  0.5f,
 		 0.5f, 0.0f,  0.5f,

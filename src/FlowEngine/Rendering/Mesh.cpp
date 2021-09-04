@@ -64,8 +64,19 @@ Mesh::Mesh(const std::vector<float>& positions,
 
 }
 
+Mesh::Mesh(Shape shape)
+	: Mesh{ shape.getPositions(), shape.getIndices(), shape.getNormals(), shape.getTexcoords() } {}
+
 void Mesh::bindVAO() {
 	glBindVertexArray(meshVAO);
+}
+
+Mesh::~Mesh() {
+	glDeleteVertexArrays(1, &meshVAO);
+	glDeleteBuffers(1, &positionBO);
+	glDeleteBuffers(1, &normalBO);
+	glDeleteBuffers(1, &texcoordBO);
+	glDeleteBuffers(1, &indexBO);
 }
 
 //////////////////////////////////

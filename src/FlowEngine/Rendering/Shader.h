@@ -11,7 +11,6 @@
 
 class Shader {
 public:
-    unsigned int ID;
     //Constructor
     Shader() {}
     Shader(const char* vertexPath, const char* fragmentPath);
@@ -31,6 +30,9 @@ public:
     void setVec4(const std::string& name, float x, float y, float z, float w) const;
     void setVec4(const std::string& name, glm::vec4& value) const;
     void setMat4(const std::string& name, glm::mat4& value) const;
+
+public:
+    unsigned int ID;
 private:
     void checkCompileErrors(unsigned int shader, std::string type);
 

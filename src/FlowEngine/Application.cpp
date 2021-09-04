@@ -12,29 +12,10 @@ void Application::onEvent(Event& e) {
 }
 
 void Application::run() {
-	/*std::vector<float> positions{
-		-0.5f, -0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f
-	};
-
-	std::vector<unsigned int> indices{
-		0, 1, 3,
-		3, 2, 0
-	}; */
-	/*
-	Cube myCube;
-	unsigned int numVertex{ myCube.getNumIndices() };
-
-	Mesh mesh(myCube.getPositions(), myCube.getIndices());
-	*/
-
 	Sphere mySphere;
 	Square floor;
-	unsigned int numIndices{ mySphere.getNumIndices() };
-	Mesh sphereMesh(mySphere.getPositions(), mySphere.getIndices(), mySphere.getNormals());
-	Mesh floorMesh(floor.getPositions(), floor.getIndices(), floor.getNormals());
+	Mesh sphereMesh(mySphere);
+	Mesh floorMesh(floor);
 
 	Shader shader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs");
 	shader.bind();
@@ -63,10 +44,10 @@ void Application::run() {
 
 		sphereMesh.bindVAO();
 		shader.setMat4("model", modelSphere);
-		glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sphereMesh.getNumIndices(), GL_UNSIGNED_INT, 0);
 		floorMesh.bindVAO();
 		shader.setMat4("model", modelFloor);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, floorMesh.getNumIndices(), GL_UNSIGNED_INT, 0);
 
 
 		m_window.onUpdate();
