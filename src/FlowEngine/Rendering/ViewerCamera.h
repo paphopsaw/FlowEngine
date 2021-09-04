@@ -14,13 +14,13 @@ public:
 		, m_farClip{ farClip }
 		, Camera(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip)) {}
 
-	const glm::mat4 getViewMatrix() const;
+	virtual const glm::mat4 getViewMatrix() const;
 
 	glm::vec3 getOrigin() { return m_origin; }
 	float getDistance() { return m_distance; }
 	float getElevation() { return m_elevation; }
 	float getAzimuth() { return m_azimuth; }
-	glm::vec3 getPositions();
+	virtual glm::vec3 getPositions();
 
 	void setAspectRatio(float aspectRatio);
 	void zoom(const float& delta) { m_distance += delta; }

@@ -5,13 +5,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include "ResourceManager.h"
-#include "Camera.h"
-
-
-/*
- Instance [(InstanceID, Mesh, Transform), ...]
- Light
-*/
 
 
 struct Transform {
@@ -30,6 +23,7 @@ struct DirectionalLight {
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
 	glm::vec3 specular;
+	bool isOn;
 };
 
 struct PointLight {
@@ -40,6 +34,7 @@ struct PointLight {
 	float constant;
 	float linear;
 	float quadratic;
+	bool isOn;
 };
 
 struct Instance {
@@ -53,18 +48,22 @@ struct Instance {
 class Scene {
 public:
 	Scene() {}
-	~Scene();
-	void addInstance(std::string meshName, Transform transform, std::string name);
+	~Scene() = default;
+	void addInstance(std::string meshName, Transform transform, Material material, std::string name);
 	void removeInstance(std::string name);
-	void addCamera(Camera camera, std::string name);
-	void removeCamera(std::string name);
+	void setTransfrom(Transform transform, std::string name);
+	void clearInstances();
+	//TODO: Generate instances from particle system
+	//Load scene from file?
 	void addDirectionalLight(DirectionalLight light, std::string name);
 	void removeDirectionalLight(std::string name);
-
+	void setDirectionalLightIsOn(bool isOn, std::string name);
+	void addPointLight(PointLight light, std::string name);
+	void removePointLight(std::string name);
+	void setPointLightIsOn(bool isOn, std::string name);
 
 private:
 	std::map<std::string, Instance> m_instances;
-	std::map<std::string, Camera> m_cameras;
 	std::map<std::string, DirectionalLight> m_dirLight;
 	std::map<std::string, PointLight> m_pointLight;
 };

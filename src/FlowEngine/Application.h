@@ -37,5 +37,6 @@ private:
 	float m_lastFrameTime;
 	Window m_window;
 	ViewerCameraController m_cameraController;
+	//m_scene;
 	std::string m_name;
 };
