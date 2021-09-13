@@ -51,19 +51,20 @@ public:
 	~Scene() = default;
 	void addInstance(std::string meshName, Transform transform, Material material, std::string name);
 	void removeInstance(std::string name);
-	void setTransfrom(Transform transform, std::string name);
 	void clearInstances();
-	//TODO: Generate instances from particle system
+	std::map<std::string, Instance> getInstances() { return m_instances; }
 	//Load scene from file?
 	void addDirectionalLight(DirectionalLight light, std::string name);
 	void removeDirectionalLight(std::string name);
 	void setDirectionalLightIsOn(bool isOn, std::string name);
+	std::map<std::string, DirectionalLight> getDirLights() { return m_dirLights; }
 	void addPointLight(PointLight light, std::string name);
 	void removePointLight(std::string name);
 	void setPointLightIsOn(bool isOn, std::string name);
+	std::map<std::string, PointLight> getPointLights() { return m_pointLights; }
 
 private:
 	std::map<std::string, Instance> m_instances;
-	std::map<std::string, DirectionalLight> m_dirLight;
-	std::map<std::string, PointLight> m_pointLight;
+	std::map<std::string, DirectionalLight> m_dirLights;
+	std::map<std::string, PointLight> m_pointLights;
 };

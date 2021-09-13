@@ -3,18 +3,15 @@
 #include "Scene.h"
 #include "Shader.h"
 #include "Camera.h"
+#include "ResourceManager.h"
 
-//Should minimize the update of Scene data in here
 
+//For setting up framebuffer, etc.
 class Renderer {
 public:
-	Renderer(Shader& shader)
-		:m_shader{ shader } {}
-	void draw(Scene& scene, Camera& camera);
+	Renderer();
+	void draw(Shader& shader, Scene& scene, Camera& camera);
 
 private:
-	void loadSceneData(Scene& scene);
-private:
-	Shader m_shader;
-	Scene m_scene;
+	void drawScene(Shader& shader, Scene& scene);
 };

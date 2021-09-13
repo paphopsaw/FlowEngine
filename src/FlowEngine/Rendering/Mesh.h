@@ -15,10 +15,12 @@ public:
 			const std::vector<float>& texcoords = std::vector<float>());
 	Mesh(Shape shape);
 	Mesh(std::string& objFilePath, std::string& materialFilesPath);
-	~Mesh();
+	void draw();
+	unsigned int getNumVertices() { return m_numVertices; }
+	unsigned int getNumIndices() { return m_numIndices; }
 	void bindVAO();
-	unsigned int getNumVertices() { return numVertices; }
-	unsigned int getNumIndices() { return numIndices; }
+	void unbindVAO();
+	void clear();
 
 private:
 	unsigned int meshVAO;
@@ -27,7 +29,7 @@ private:
 	unsigned int texcoordBO;
 	unsigned int indexBO;
 
-	unsigned int numVertices;
-	unsigned int numIndices;
+	unsigned int m_numVertices;
+	unsigned int m_numIndices;
 
 };

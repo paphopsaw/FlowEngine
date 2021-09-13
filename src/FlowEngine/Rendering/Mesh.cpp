@@ -8,8 +8,8 @@ Mesh::Mesh(const std::vector<float>& positions,
 	const std::vector<unsigned int>& indices,
 	const std::vector<float>& normals,
 	const std::vector<float>& texcoords) {
-	numIndices = indices.size();
-	numVertices = positions.size() / 3;
+	m_numIndices = indices.size();
+	m_numVertices = positions.size() / 3;
 	//Position buffer
 	glGenBuffers(1, &positionBO);
 	glBindBuffer(GL_ARRAY_BUFFER, positionBO);
@@ -67,11 +67,21 @@ Mesh::Mesh(const std::vector<float>& positions,
 Mesh::Mesh(Shape shape)
 	: Mesh{ shape.getPositions(), shape.getIndices(), shape.getNormals(), shape.getTexcoords() } {}
 
+void Mesh::draw() {
+	glBindVertexArray(meshVAO);
+	glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+}
+
 void Mesh::bindVAO() {
 	glBindVertexArray(meshVAO);
 }
 
-Mesh::~Mesh() {
+void Mesh::unbindVAO() {
+	glBindVertexArray(0);
+}
+
+void Mesh::clear() {
 	glDeleteVertexArrays(1, &meshVAO);
 	glDeleteBuffers(1, &positionBO);
 	glDeleteBuffers(1, &normalBO);
@@ -80,7 +90,7 @@ Mesh::~Mesh() {
 }
 
 //////////////////////////////////
-//TODO: Process mesh
+//TODO: Process mesh from file
 //////////////////////////////////
 Mesh::Mesh(std::string& objFilePath, std::string& materialFilesPath) {
 	tinyobj::ObjReaderConfig reader_config;

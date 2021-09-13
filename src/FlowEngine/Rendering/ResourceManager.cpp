@@ -48,6 +48,7 @@ void ResourceManager::clear() {
 		s_textures.erase(i.first);
 	}
 	for (auto i : s_meshes) {
+		i.second.clear();
 		s_meshes.erase(i.first);
 	}
 }

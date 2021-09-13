@@ -12,43 +12,53 @@ void Application::onEvent(Event& e) {
 }
 
 void Application::run() {
-	Sphere mySphere;
-	Square floor;
-	Mesh sphereMesh(mySphere);
-	Mesh floorMesh(floor);
+	Sphere sphere;
+	Square square;
+	ResourceManager::loadMesh(sphere, "sphere");
+	ResourceManager::loadMesh(square, "square");
+	ResourceManager::loadShader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs", "myShader");
 
-	Shader shader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs");
-	shader.bind();
+	m_scene.addInstance("sphere",
+		{ glm::vec3(1.0f, 1.0f, 1.0f),
+		  glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+		  glm::vec3(0.0f, 1.0f, 0.0f)
+		},
+		{ 32.0f,
+		  glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)
+		},
+		"Ball");
 
-	glm::mat4 proj = m_cameraController.getCamera().getProjectionMatrix();
-	shader.setMat4("projection", proj);
+	m_scene.addInstance("square",
+		{ glm::vec3(20.0f, 20.0f, 20.0f),
+		  glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+		  glm::vec3(0.0f, 0.0f, 0.0f)
+		},
+		{ 32.0f,
+		  glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)
+		},
+		"Floor");
 
-	shader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-	shader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-	shader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
-	shader.setVec3("dirLight.direction", 0.0f, -1.0f, -1.0f);
-	shader.setFloat("shininess", 32.0f);
-	glm::mat4 modelSphere = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 modelFloor = glm::scale(glm::mat4(1.0f), glm::vec3(20.0f, 20.0f, 20.0f));
-	glEnable(GL_DEPTH_TEST);
+	m_scene.addDirectionalLight(
+		{ glm::vec3(0.0f, -1.0f, -1.0f),
+		  glm::vec3(0.05f, 0.05f, 0.05f),
+		  glm::vec3(0.4f, 0.4f, 0.4f),
+		  glm::vec3(0.5f, 0.5f, 0.5f),
+		  true
+		},
+		"Light1");
+
+	Renderer renderer;
+
 	while (m_window.isRunning())
 	{
+		//TODO : Add timestep into ViewerCameraController
 		float time = glfwGetTime();
 		m_timeStep = time - m_lastFrameTime;
 		m_lastFrameTime = time;
+
 		m_window.clear();
-		glm::mat4 view = m_cameraController.getCamera().getViewMatrix();
-		shader.setMat4("view", view);
-		glm::vec3 viewPositions = m_cameraController.getCamera().getPositions();
-		shader.setVec3("viewPos", viewPositions);
 
-		sphereMesh.bindVAO();
-		shader.setMat4("model", modelSphere);
-		glDrawElements(GL_TRIANGLES, sphereMesh.getNumIndices(), GL_UNSIGNED_INT, 0);
-		floorMesh.bindVAO();
-		shader.setMat4("model", modelFloor);
-		glDrawElements(GL_TRIANGLES, floorMesh.getNumIndices(), GL_UNSIGNED_INT, 0);
-
+		renderer.draw(ResourceManager::getShader("myShader"), m_scene, m_cameraController.getCamera());
 
 		m_window.onUpdate();
 	}

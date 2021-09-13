@@ -3,9 +3,12 @@
 #include "Event/Event.h"
 #include "Event/ApplicationEvent.h"
 #include "Rendering/Scene.h"
-#include "Rendering/Shader.h"
 #include "Rendering/Mesh.h"
+#include "Rendering/Shader.h"
 #include "Rendering/ViewerCameraController.h"
+#include "Rendering/ResourceManager.h"
+#include "Rendering/Renderer.h"
+#include "Rendering/Scene.h"
 #include "Modelling/Cube.h"
 #include "Modelling/Sphere.h"
 #include "Modelling/Square.h"
@@ -37,6 +40,6 @@ private:
 	float m_lastFrameTime;
 	Window m_window;
 	ViewerCameraController m_cameraController;
-	//m_scene;
+	Scene m_scene;
 	std::string m_name;
 };
