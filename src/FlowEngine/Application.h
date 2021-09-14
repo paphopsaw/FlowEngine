@@ -12,6 +12,7 @@
 #include "Modelling/Cube.h"
 #include "Modelling/Sphere.h"
 #include "Modelling/Square.h"
+#include "Physics/Particle.h"
 #include <string>
 #include <iostream>
 #include <glm/glm.hpp>

@@ -36,7 +36,7 @@ private:
 	float m_farClip;
 	//view
 	glm::vec3 m_origin = glm::vec3(0.0f, 0.0f, 0.0f);
-	float m_distance = 5.0f;
+	float m_distance = 10.0f;
 	float m_elevation = 0.0f;
 	float m_azimuth = 0.0f;
 };

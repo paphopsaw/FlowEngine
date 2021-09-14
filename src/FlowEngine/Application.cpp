@@ -8,7 +8,7 @@ Application::Application(const std::string& name, unsigned int width, unsigned i
 }
 
 void Application::onEvent(Event& e) {
-	m_cameraController.onEvent(e);
+	m_cameraController.onEvent(e, m_timeStep);
 }
 
 void Application::run() {
@@ -17,6 +17,9 @@ void Application::run() {
 	ResourceManager::loadMesh(sphere, "sphere");
 	ResourceManager::loadMesh(square, "square");
 	ResourceManager::loadShader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs", "myShader");
+
+	Particle particle(2.0f, glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	particle.setAcceleration(glm::vec3(0.0f, -9.8f, 0.0f));
 
 	m_scene.addInstance("sphere",
 		{ glm::vec3(1.0f, 1.0f, 1.0f),
@@ -28,13 +31,15 @@ void Application::run() {
 		},
 		"Ball");
 
+	m_scene.getInstances()["Ball"].transform.translation = particle.getPosition();
+
 	m_scene.addInstance("square",
 		{ glm::vec3(20.0f, 20.0f, 20.0f),
 		  glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
 		  glm::vec3(0.0f, 0.0f, 0.0f)
 		},
-		{ 32.0f,
-		  glm::vec3(0.4f, 0.2f, 0.3f)
+		{ 128.0f,
+		  glm::vec3(0.4f, 0.7f, 0.5f)
 		},
 		"Floor");
 
@@ -61,16 +66,23 @@ void Application::run() {
 		"Light2");
 
 	Renderer renderer;
+	m_cameraController.getCamera().tilt(30);
+	m_cameraController.getCamera().rotate(45);
+	m_cameraController.getCamera().zoom(20);
 
 	while (m_window.isRunning())
 	{
-		//TODO : Add timestep into ViewerCameraController
 		float time = glfwGetTime();
 		m_timeStep = time - m_lastFrameTime;
 		m_lastFrameTime = time;
 
-		m_window.clear();
+		//Update particle
+		particle.integrate(m_timeStep);
+		std::cout << particle.getPosition().y << "\n";
+		m_scene.getInstances()["Ball"].transform.translation = particle.getPosition();
 
+		//Draw
+		m_window.clear();
 		renderer.draw(ResourceManager::getShader("myShader"), m_scene, m_cameraController.getCamera());
 
 		m_window.onUpdate();

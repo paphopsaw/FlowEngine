@@ -1,6 +1,6 @@
 #include "ViewerCameraController.h"
 
-void ViewerCameraController::onEvent(Event& e) {
+void ViewerCameraController::onEvent(Event& e, float ts) {
 	EventType type = e.getType();
 	switch (type) {
 	case EventType::WindowResize:
@@ -13,7 +13,7 @@ void ViewerCameraController::onEvent(Event& e) {
 		this->onMouseButtonReleased(static_cast<MouseButtonReleasedEvent&>(e));
 		break;
 	case EventType::MouseMoved:
-		this->onMouseMoved(static_cast<MouseMovedEvent&>(e));
+		this->onMouseMoved(static_cast<MouseMovedEvent&>(e), ts);
 		break;
 	case EventType::MouseScrolled:
 		this->onMouseScrolled(static_cast<MouseScrolledEvent&>(e));
@@ -63,7 +63,7 @@ void ViewerCameraController::onMouseScrolled(MouseScrolledEvent& e) {
 	m_camera.zoom(delta * m_scrollSensitivity);
 }
 
-void ViewerCameraController::onMouseMoved(MouseMovedEvent& e) {
+void ViewerCameraController::onMouseMoved(MouseMovedEvent& e, float ts) {
 	float posX = e.getX();
 	float posY = e.getY();
 	float dx = posX - m_mousePosX;
@@ -71,11 +71,11 @@ void ViewerCameraController::onMouseMoved(MouseMovedEvent& e) {
 	m_mousePosX = posX;
 	m_mousePosY = posY;
 	if (m_mode == CameraControlMode::ROTATE) {
-		m_camera.tilt(glm::radians(dy * m_mouseRotateSensitivity));
-		m_camera.rotate(glm::radians(dx * m_mouseRotateSensitivity));
+		m_camera.tilt(glm::radians(dy * m_mouseRotateSensitivity * ts));
+		m_camera.rotate(glm::radians(dx * m_mouseRotateSensitivity * ts));
 	}
 	else if (m_mode == CameraControlMode::MOVE) {
-		glm::vec2 delta = glm::vec2(dx * m_mouseMoveSensitivity, dy * m_mouseMoveSensitivity);
+		glm::vec2 delta = glm::vec2(dx * m_mouseMoveSensitivity * ts, dy * m_mouseMoveSensitivity * ts);
 		m_camera.move(delta);
 	}
 
