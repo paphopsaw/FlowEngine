@@ -26,17 +26,17 @@ void Scene::removeDirectionalLight(std::string name) {
 }
 
 void Scene::setDirectionalLightIsOn(bool isOn, std::string name) {
-
+	m_dirLights[name].isOn = isOn;
 }
 
 void Scene::addPointLight(PointLight light, std::string name) {
-
+	m_pointLights[name] = light;
 }
 
 void Scene::removePointLight(std::string name) {
-
+	m_pointLights.erase(name);
 }
 
 void Scene::setPointLightIsOn(bool isOn, std::string name) {
-
+	m_pointLights[name].isOn = isOn;
 }

@@ -15,7 +15,7 @@ struct Transform {
 
 struct Material {
 	float shininess;
-	glm::vec4 color;
+	glm::vec3 color;
 };
 
 struct DirectionalLight {

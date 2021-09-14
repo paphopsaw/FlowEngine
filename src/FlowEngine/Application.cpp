@@ -24,7 +24,7 @@ void Application::run() {
 		  glm::vec3(0.0f, 1.0f, 0.0f)
 		},
 		{ 32.0f,
-		  glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)
+		  glm::vec3(1.0f, 0.0f, 0.0f)
 		},
 		"Ball");
 
@@ -34,7 +34,7 @@ void Application::run() {
 		  glm::vec3(0.0f, 0.0f, 0.0f)
 		},
 		{ 32.0f,
-		  glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)
+		  glm::vec3(0.4f, 0.2f, 0.3f)
 		},
 		"Floor");
 
@@ -46,6 +46,19 @@ void Application::run() {
 		  true
 		},
 		"Light1");
+
+	m_scene.addPointLight(
+		{
+		  glm::vec3(2.0f, 4.0f, -2.0f),
+		  glm::vec3(0.05f, 0.05f, 0.05f),
+		  glm::vec3(0.4f, 0.4f, 0.4f),
+		  glm::vec3(0.5f, 0.5f, 0.5f),
+		  1.0f,
+		  0.4f,
+		  0.032f,
+		  true
+		},
+		"Light2");
 
 	Renderer renderer;
 
