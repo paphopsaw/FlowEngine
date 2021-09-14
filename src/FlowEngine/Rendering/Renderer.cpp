@@ -52,9 +52,9 @@ void Renderer::drawScene(Shader& shader, Scene& scene) {
 	for (auto instance : scene.getInstances()) {
 		//Get model matrix from transform
 		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, instance.second.transform.translation);
 		model = glm::mat4_cast(instance.second.transform.rotation) * model;
 		model = glm::scale(model, instance.second.transform.scale);
-		model = glm::translate(model, instance.second.transform.translation);
 		shader.setMat4("model", model);
 		//Material
 		shader.setFloat("material.shininess", instance.second.material.shininess);

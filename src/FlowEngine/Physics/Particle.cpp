@@ -3,10 +3,11 @@
 void Particle::integrate(float dt) {
 	if (m_inverseMass <= 0.0f) return;
 
-	std::cout << dt << "\n";
-	m_position += m_velocity * dt;
-	std::cout << m_position.x << " " << m_position.y << " " << m_position.z << "\n";
 
+	//Update position
+	m_position += m_velocity * dt;
+
+	//Update velocity
 	glm::vec3 resultantAcc = m_acceleration;
 	m_velocity += resultantAcc * dt;
 

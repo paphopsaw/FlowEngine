@@ -18,11 +18,11 @@ void Application::run() {
 	ResourceManager::loadMesh(square, "square");
 	ResourceManager::loadShader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs", "myShader");
 
-	Particle particle(2.0f, glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	Particle particle(2.0f, glm::vec3(10.0f, 0.0f, 0.0f), glm::vec3(-5.0f, 10.0f, 0.0f));
 	particle.setAcceleration(glm::vec3(0.0f, -9.8f, 0.0f));
 
 	m_scene.addInstance("sphere",
-		{ glm::vec3(1.0f, 1.0f, 1.0f),
+		{ glm::vec3(0.5f, 0.5f, 0.5f),
 		  glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
 		  glm::vec3(0.0f, 1.0f, 0.0f)
 		},
@@ -78,7 +78,6 @@ void Application::run() {
 
 		//Update particle
 		particle.integrate(m_timeStep);
-		std::cout << particle.getPosition().y << "\n";
 		m_scene.getInstances()["Ball"].transform.translation = particle.getPosition();
 
 		//Draw
