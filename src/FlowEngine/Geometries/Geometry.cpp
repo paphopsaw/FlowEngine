@@ -50,16 +50,24 @@ Geometry::loadToGPU() {
 	glBindVertexArray(0);
 }
 
-void Geometry::bindVAO() {
+void Geometry::bindVAO() const {
 	glBindVertexArray(VAO);
 }
 
-void Geometry::unbindVAO() {
+void Geometry::unbindVAO() const {
 	glBindVertexArray(0);
 }
 
-void Geometry::draw() {
+void Geometry::draw() const {
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+}
+
+void Geometry::clear() {
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &positionBO);
+	glDeleteBuffers(1, &normalBO);
+	glDeleteBuffers(1, &texcoordBO);
+	glDeleteBuffers(1, &indexBO);
 }

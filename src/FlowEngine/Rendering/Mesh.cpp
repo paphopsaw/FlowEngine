@@ -1,26 +1,31 @@
 #include "Mesh.h"
+/*
 #define TINYOBJLOADER_IMPLEMENTATION // define this in only *one* .cc
 // Optional. define TINYOBJLOADER_USE_MAPBOX_EARCUT gives robust trinagulation. Requires C++11
 //#define TINYOBJLOADER_USE_MAPBOX_EARCUT
 #include "tiny_obj_loader.h"
+*/
 
 
-
-Mesh::Mesh(Geometry geometry) {
-
-
+Mesh::Mesh(const Geometry& geometry, Material material)
+	:m_geometry{ geometry }, m_material{ material } {
+	m_transform = 
+		{ 
+		  glm::vec3(1.0f, 1.0f, 1.0f),
+		  glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+		  glm::vec3(0.0f, 0.0f, 0.0f)
+		};
 }
 
 void Mesh::draw() {
-	
+	//TODO
 }
 
 
-
-
 //////////////////////////////////
-//TODO: Process mesh from file
+//TODO: Move to resource manager
 //////////////////////////////////
+/*
 Mesh::Mesh(std::string& objFilePath, std::string& materialFilesPath) {
 	tinyobj::ObjReaderConfig reader_config;
 	reader_config.mtl_search_path = materialFilesPath; // Path to material files
@@ -82,3 +87,4 @@ Mesh::Mesh(std::string& objFilePath, std::string& materialFilesPath) {
 		}
 	}
 }
+*/

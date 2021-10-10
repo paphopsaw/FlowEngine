@@ -10,11 +10,12 @@ public:
 	std::vector<unsigned int>& getIndices() { return m_indices; }
 	std::vector<float>& getNormals() { return m_normals; }
 	std::vector<float>& getTexcoords() { return m_texcoords; }
-	unsigned int getNumVertices() { return m_numVertices; }
-	unsigned int getNumIndices() { return m_numIndices; }
-	void bindVAO();
-	void unbindVAO();
-	void draw();
+	unsigned int getNumVertices() const { return m_numVertices; }
+	unsigned int getNumIndices() const { return m_numIndices; }
+	void bindVAO() const;
+	void unbindVAO() const;
+	void draw() const;
+	void clear();
 
 protected:
 	std::vector<float> m_positions;

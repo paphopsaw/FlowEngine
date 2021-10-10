@@ -7,16 +7,7 @@
 #include "ResourceManager.h"
 
 
-struct Transform {
-	glm::vec3 scale;
-	glm::quat rotation;
-	glm::vec3 translation;
-};
 
-struct Material {
-	float shininess;
-	glm::vec3 color;
-};
 
 struct DirectionalLight {
 	glm::vec3 direction;

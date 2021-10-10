@@ -14,8 +14,6 @@ void Application::onEvent(Event& e) {
 void Application::run() {
 	Sphere sphere;
 	Plane plane;
-	ResourceManager::loadMesh(sphere, "sphere");
-	ResourceManager::loadMesh(plane, "square");
 	ResourceManager::loadShader("../../../resources/shaders/shader.vs", "../../../resources/shaders/shader.fs", "myShader");
 
 	Particle particle(2.0f, glm::vec3(10.0f, 0.0f, 0.0f), glm::vec3(-5.0f, 10.0f, 0.0f));

@@ -3,7 +3,6 @@
 
 std::map<std::string, Shader>       ResourceManager::s_shaders;
 std::map<std::string, Texture2D>    ResourceManager::s_textures;
-std::map<std::string, Mesh>			ResourceManager::s_meshes;
 
 Shader ResourceManager::loadShader(const char* vertexPath, const char* fragmentPath, std::string name) {
 	Shader shader(vertexPath, fragmentPath);
@@ -28,15 +27,6 @@ Texture2D ResourceManager::getTexture(std::string name) {
 	return s_textures[name];
 }
 
-Mesh ResourceManager::loadMesh(Shape shape, std::string name) {
-	Mesh mesh(shape);
-	s_meshes[name] = mesh;
-	return mesh;
-}
-
-Mesh ResourceManager::getMesh(std::string name) {
-	return s_meshes[name];
-}
 
 void ResourceManager::clear() {
 	for (auto i : s_shaders) {
@@ -47,8 +37,8 @@ void ResourceManager::clear() {
 		glDeleteTextures(1, &i.second.ID);
 		s_textures.erase(i.first);
 	}
-	for (auto i : s_meshes) {
+	for (auto i : s_geometries) {
 		i.second.clear();
-		s_meshes.erase(i.first);
+		s_geometries.erase(i.first);
 	}
 }
