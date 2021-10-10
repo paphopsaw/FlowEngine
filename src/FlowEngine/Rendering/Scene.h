@@ -43,8 +43,6 @@ struct Instance {
 	Material material;
 };
 
-
-
 class Scene {
 public:
 	Scene() {}

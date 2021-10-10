@@ -9,9 +9,9 @@
 #include "Rendering/ResourceManager.h"
 #include "Rendering/Renderer.h"
 #include "Rendering/Scene.h"
-#include "Modelling/Cube.h"
-#include "Modelling/Sphere.h"
-#include "Modelling/Square.h"
+#include "Geometries/Cube.h"
+#include "Geometries/Sphere.h"
+#include "Geometries/Plane.h"
 #include "Physics/Particle.h"
 #include <string>
 #include <iostream>

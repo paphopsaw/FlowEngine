@@ -1,10 +1,10 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Shape.h"
+#include "Geometry.h"
 #include <iostream>
 
-class Sphere : public Shape {
+class Sphere : public Geometry {
 public:
 	Sphere(float radius = 1.0f, unsigned int numLatitudes = 18, unsigned int numLongitudes = 36);
 	void clear();

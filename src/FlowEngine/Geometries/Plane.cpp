@@ -1,6 +1,6 @@
-#include "Square.h"
+#include "Plane.h"
 
-Square::Square(float length)
+Plane::Plane()
 	:m_length{ length } {
 	m_numVertices = 4;
 	m_numIndices = 6;
@@ -26,4 +26,6 @@ Square::Square(float length)
 		1.0f, 1.0f,
 		0.0f, 1.0f
 	};
+	
+	loadToGPU();
 }

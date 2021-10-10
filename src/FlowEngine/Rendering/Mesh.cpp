@@ -4,90 +4,19 @@
 //#define TINYOBJLOADER_USE_MAPBOX_EARCUT
 #include "tiny_obj_loader.h"
 
-Mesh::Mesh(const std::vector<float>& positions,
-	const std::vector<unsigned int>& indices,
-	const std::vector<float>& normals,
-	const std::vector<float>& texcoords) {
-	m_numIndices = indices.size();
-	m_numVertices = positions.size() / 3;
-	//Position buffer
-	glGenBuffers(1, &positionBO);
-	glBindBuffer(GL_ARRAY_BUFFER, positionBO);
-	glBufferData(GL_ARRAY_BUFFER, positions.size() * sizeof(float), positions.data(), GL_STATIC_DRAW);
-	//Normal buffer
-	if (normals.size() > 0) {
-		glGenBuffers(1, &normalBO);
-		glBindBuffer(GL_ARRAY_BUFFER, normalBO);
-		glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(float), normals.data(), GL_STATIC_DRAW);
-	}
-	//Texcoord buffer
-	if (texcoords.size() > 0) {
-		glGenBuffers(1, &texcoordBO);
-		glBindBuffer(GL_ARRAY_BUFFER, texcoordBO);
-		glBufferData(GL_ARRAY_BUFFER, texcoords.size() * sizeof(float), texcoords.data(), GL_STATIC_DRAW);
-	}
-	//Index buffer
-	glGenBuffers(1, &indexBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
-	//Add everything to VAO
-	glGenVertexArrays(1, &meshVAO);
-	//Position
-	glBindVertexArray(meshVAO);
-	glBindBuffer(GL_ARRAY_BUFFER, positionBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glEnableVertexAttribArray(0);
-	glBindVertexArray(0);
-	//Normal
-	if (normalBO != 0) {
-		glBindVertexArray(meshVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, normalBO);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glEnableVertexAttribArray(1);
-		glBindVertexArray(0);
-	}
-	//Texcoord
-	if (texcoordBO != 0) {
-		glBindVertexArray(meshVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, texcoordBO);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glEnableVertexAttribArray(2);
-		glBindVertexArray(0);
-	}
-	//Index
-	glBindVertexArray(meshVAO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBO);
-	glBindVertexArray(0);
+
+
+Mesh::Mesh(Geometry geometry) {
+
 
 }
-
-Mesh::Mesh(Shape shape)
-	: Mesh{ shape.getPositions(), shape.getIndices(), shape.getNormals(), shape.getTexcoords() } {}
 
 void Mesh::draw() {
-	glBindVertexArray(meshVAO);
-	glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+	
 }
 
-void Mesh::bindVAO() {
-	glBindVertexArray(meshVAO);
-}
 
-void Mesh::unbindVAO() {
-	glBindVertexArray(0);
-}
 
-void Mesh::clear() {
-	glDeleteVertexArrays(1, &meshVAO);
-	glDeleteBuffers(1, &positionBO);
-	glDeleteBuffers(1, &normalBO);
-	glDeleteBuffers(1, &texcoordBO);
-	glDeleteBuffers(1, &indexBO);
-}
 
 //////////////////////////////////
 //TODO: Process mesh from file

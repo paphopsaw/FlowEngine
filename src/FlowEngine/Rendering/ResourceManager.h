@@ -5,7 +5,7 @@
 #include "Texture.h"
 #include "Shader.h"
 #include "Mesh.h"
-#include "Modelling/Shape.h"
+#include "Geometries/Shape.h"
 
 class ResourceManager {
 public:

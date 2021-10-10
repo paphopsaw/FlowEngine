@@ -13,12 +13,7 @@ void Renderer::draw(Shader& shader, Scene& scene, Camera& camera) {
 	shader.setMat4("view", view);
 	glm::vec3 viewPosition = camera.getPositions();
 	shader.setVec3("viewPos", viewPosition);
-	//Load scene data
-	drawScene(shader, scene);
 
-}
-
-void Renderer::drawScene(Shader& shader, Scene& scene) {
 	//Load light to GPU
 	shader.setInt("numDirLights", static_cast<int>(scene.getDirLights().size()));
 	shader.setInt("numPointLights", static_cast<int>(scene.getPointLights().size()));
@@ -47,6 +42,12 @@ void Renderer::drawScene(Shader& shader, Scene& scene) {
 		shader.setFloat((varName + "quadratic").c_str(), pointLight.second.quadratic);
 		++i;
 	}
+
+	drawScene(shader, scene);
+
+}
+
+void Renderer::drawScene(Shader& shader, Scene& scene) {
 
 	//Load instances data to GPU and draw
 	for (auto instance : scene.getInstances()) {
